@@ -51,17 +51,13 @@ RESPONSE
 ### Q. How precise do you think your outcome is and why?
  My solution is quite precise and simple as I've used a simple math for calculating a score as per assumption made in point a.I'm saying my keyword is popular/hottest based on the suggestions and not the actual trend in amazon.
 
-
-# Solution would definitely need extension in case of below matters:
-
-    1.How correctly suggestions are getting generated
-    2.Suggestions might not be that popular but actually purchased more in terms of order completion. e.g. 'Jeans' gives me 10 suggestions which is too much popular keyword, and 'sujata' also gives 10 suggestions which I think comparatively not popular among amazone products.
-    so it quite difficult to say on whether its actually hottest keyword
-    3.SLA - says my service should not take more than 10 seconds, so used hystrix command to timeout if takes more time.
-        i. I gave a thought to call amazone API multiple times during this SLA and give the latest score or the average, but then Its not making any sense because User would not want to wait for 10 seconds and get latest result.
-        Instead I'll provide response as soon as I'm done calculating because user want to know the score of his/her keyword at that moment.
-        ii. secondly, we should consider the time taken for retrieving amazone api response and calculating score.
-    4. In case amazone returns more than 10 suggestions and score may cross 100.(In my solution I've taken care so my score will not cross 100)
+Solution would definitely need extension in case of below matters:
+1. How correctly suggestions are getting generated
+2. Suggestions might not be that popular but actually purchased more in terms of order completion. e.g. 'Jeans' gives me 10 suggestions which is too much popular keyword, and 'sujata' also gives 10 suggestions which I think comparatively not popular among amazone products.so it quite difficult to say on whether its actually hottest keyword
+3. SLA - says my service should not take more than 10 seconds, so used hystrix command to timeout if takes more time.
+    i. I gave a thought to call amazone API multiple times during this SLA and give the latest score or the average, but then Its not making any sense because User would not want to wait for 10 seconds and get latest result.Instead I'll provide response as soon as I'm done calculating because user want to know the score of his/her keyword at that moment.
+    ii. secondly, we should consider the time taken for retrieving amazone api response and calculating score.
+4. In case amazone returns more than 10 suggestions and score may cross 100.(In my solution I've taken care so my score will not cross 100)
 
 ```
 ________________________________________________________
