@@ -14,45 +14,40 @@ RESPONSE
 ## Q and A
 Q-What assumptions did you make?
 
-
 A-Assumptions on Amazone autocomplete API after reverse-engineering on Amazon:
-
-    1.It returns 10 suggestions for the text/keyword entered in a search-box, these items are the top used keywords by other customers who also performs searching
-    2.Suggestions are always prefixed with the entered keyword
-    3.It doesn't say anything on the score or search volume as they might be computing this list based on several business strategies. We may say these are 10 suggestions important for Amazone right now.
-    4.It returns relative item suggestions if exact match not available(e.g. in case of keyword incorrectly spelled), Search strategy might be different for exact match and relative match
-    5.Its ordered by score and not alphabetically
-    6.Service creates a list of substrings for specified keywords starting from the 1st letter. If keyword is 'samsung' in result we receive list with 6 substrings - [s, sa, sam, ...]
-    7.Service creates list of request commands and performs requests to Amazon completion API, so for 'samsung' it prepares 7 requests and gets 7 responses.
-    8.Keyword entered might be a substring of suggestion keywords. e.g. If keyword is 'lego', suggestions might be 'legos for boys'. So, I won't give score as keyword found is 'legos' and not 'lego'.
+1.It returns 10 suggestions for the text/keyword entered in a search-box, these items are the top used keywords by other customers who also performs searching
+2.Suggestions are always prefixed with the entered keyword
+3.It doesn't say anything on the score or search volume as they might be computing this list based on several business strategies. We may say these are 10 suggestions important for Amazone right now.
+4.It returns relative item suggestions if exact match not available(e.g. in case of keyword incorrectly spelled), Search strategy might be different for exact match and relative match
+5.Its ordered by score and not alphabetically
+6.Service creates a list of substrings for specified keywords starting from the 1st letter. If keyword is 'samsung' in result we receive list with 6 substrings - [s, sa, sam, ...]
+7.Service creates list of request commands and performs requests to Amazon completion API, so for 'samsung' it prepares 7 requests and gets 7 responses.
+8.Keyword entered might be a substring of suggestion keywords. e.g. If keyword is 'lego', suggestions might be 'legos for boys'. So, I won't give score as keyword found is 'legos' and not 'lego'.
     
 B- Assumptions on the assignment:
-
-    1. Have to implement a micro service with a single endpoint which returns search-volume score for a particular keyword at this time.
-    2. Have to compute a search-volume score for a particular keyword based on the suggestions provided by amazone api.
-    3. Search-volume score would tell how much my keyword is popular at this moment.
-    4. Score will always range from 0 to 100.
-    5. Have to look for exact prefix match for whole keyword.
-    6. Keyword which is substring of keywords available in suggestion doesn't qualify for score.
-    7. User may enter Keyword in any case, with special characters and with white spaces - Program should handle all of these
-    8. Service has SLA of 10 seconds meaning it should not take more than 10 seconds.
+1. Have to implement a micro service with a single endpoint which returns search-volume score for a particular keyword at this time.
+2. Have to compute a search-volume score for a particular keyword based on the suggestions provided by amazone api.
+3. Search-volume score would tell how much my keyword is popular at this moment.
+4. Score will always range from 0 to 100.
+5. Have to look for exact prefix match for whole keyword.
+6. Keyword which is substring of keywords available in suggestion doesn't qualify for score.
+7. User may enter Keyword in any case, with special characters and with white spaces - Program should handle all of these
+8. Service has SLA of 10 seconds meaning it should not take more than 10 seconds.
 
 b. How does your algorithm work?
-    1. Receives keyword as a request parameter (e.g. Samsung charger).
-    2. Retrieves suggestions for the keyword from Amazone autocomplete API(https://completion.amazon.com/search/complete?search-alias=aps&mkt=1&q=iPhone+charger).
-    3. Looks for a keyword in each suggestion received from amazone API as below:
+1. Receives keyword as a request parameter (e.g. Samsung charger).
+2. Retrieves suggestions for the keyword from Amazone autocomplete API(https://completion.amazon.com/search/complete?search-alias=aps&mkt=1&q=iPhone+charger).
+3. Looks for a keyword in each suggestion received from amazone API as below:
       i. exact match found in suggestion, e.g. 'samsung charger'
       ii. exact prefix match with a suggestion, e.g. 'samsung charger cable 3.6ft'
       iii. Not considering relative match as its score for a keyword so incorrectly spelled keyword is not my hottest keyword(provided exact match not found in suggestions).
       e.g. If keyword entered is 'somsung', amazone api still gives me 10 suggestions smartly by considering it as a typo. so score for the keyword 'somsung' is 0 if not in suggestions.
-    4. Generate number of matches found for suggestions as above
-    5. Score is calculated by multiplying number of matches with 10. e.g. if number of matches found are 7, then score is 70.
-
+4. Generate number of matches found for suggestions as above
+5. Score is calculated by multiplying number of matches with 10. e.g. if number of matches found are 7, then score is 70.
 
 c. Do you think the (*hint) that we gave you earlier is correct and if so - why?
     Yes, Amazone as a biggest and popular online shopping, must be using solid strategy for their product discovery and the search volume score is affected by their business strategy.
     So, such order becomes comparatively insignificant here.
-
 
 d. How precise do you think your outcome is and why?
     My solution is quite precise and simple as I've used a simple math for calculating a score as per assumption made in point a.
