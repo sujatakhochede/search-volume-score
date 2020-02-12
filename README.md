@@ -46,7 +46,7 @@ RESPONSE
 5. Score is calculated by multiplying number of matches with 10. e.g. if number of matches found are 7, then score is 70.
 
 ### Q. Do you think the (*hint) that we gave you earlier is correct and if so - why?
- Yes, Amazone as a biggest and popular online shopping, must be using solid strategy for their product discovery and the search volume score is affected by their business strategy.So, such order becomes comparatively insignificant here.
+ Yes, Amazone as a biggest and popular online shopping portal, must be using solid strategy for their product discovery and the search  volume score is affected by their business strategy.So, such order becomes comparatively insignificant here.
 
 ### Q. How precise do you think your outcome is and why?
  My solution is quite precise and simple as I've used a simple math for calculating a score as per assumption made in point a.I'm saying my keyword is popular/hottest based on the suggestions and not the actual trend in amazon.
