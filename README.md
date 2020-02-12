@@ -3,9 +3,9 @@
 Implemented a microservice with a single REST endpoint.This will receive a single keyword as an input and return a score for that same exact keyword.
 Score ranges from 0(lowest) - 100(highest)
 
-REQUEST GET http://localhost:8080/estimate?keyword=iphone+charger
+REQUEST GET :-  http://localhost:8080/estimate?keyword=iphone+charger
 
-RESPONSE
+RESPONSE: -
 {
    "keyword": "iphone+charger",
    "score": 100
