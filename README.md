@@ -4,6 +4,7 @@ Implemented a microservice with a single REST endpoint.This will receive a singl
 Score ranges from 0(lowest) - 100(highest)
 
 REQUEST GET http://localhost:8080/estimate?keyword=iphone+charger
+
 RESPONSE
 {
    "keyword": "iphone+charger",
