@@ -1,0 +1,8 @@
+com.sellics.search
+com.sellics.search.exception
+com.sellics.search.executor
+com.sellics.search.mapper
+com.sellics.search.model
+com.sellics.search.service
+com.sellics.search.service.impl
+com.sellics.search.web
