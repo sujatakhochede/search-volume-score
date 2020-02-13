@@ -48,7 +48,7 @@ public class SearchVolumeController {
             @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000")
     })
     @GetMapping
-    public ResponseEntity<SearchVolume> getSearchVolume(@RequestParam(value = "keyword") String keyword) {
+    public ResponseEntity<?> getSearchVolume(@RequestParam(value = "keyword") String keyword) {
         return ResponseEntity.ok().body( searchVolumeService.getSearchVolume(keyword));
     }
 
@@ -60,7 +60,7 @@ public class SearchVolumeController {
      * @param t error
      * @return response json of ErrorDetail
      */
-    public ResponseEntity<ErrorDetail> timedOut(String keyword, Throwable t) {
+    public ResponseEntity<?> timedOut(String keyword, Throwable t) {
 
         return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(
                 new ErrorDetail.Builder()
